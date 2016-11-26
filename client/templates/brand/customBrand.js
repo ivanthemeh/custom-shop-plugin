@@ -13,3 +13,9 @@ Template.customCoreNavigationBrand.helpers({
     return false;
   }
 });
+
+Template.customCoreNavigationBrand.events({
+  "click .filter-btn"(e,t) {
+    $(".navbar-filter-tags").toggleClass("open");
+  }
+});

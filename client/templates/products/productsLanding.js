@@ -3,6 +3,8 @@ import { Template } from "meteor/templating";
 import { Reaction } from "/client/api";
 import { ReactionProduct } from "/lib/api";
 import { Products, Tags } from "/lib/collections";
+import { Catagories } from "../../../lib/collections";
+
 import { ITEMS_INCREMENT } from "/client/config/defaults";
 
 /**
@@ -49,6 +51,7 @@ Template.productsLanding.onCreated(function () {
 
   // Update product subscription
   this.autorun(() => {
+
     const slug = Reaction.Router.getParam("slug");
     const tag = Tags.findOne({ slug: slug }) || Tags.findOne(slug);
     const scrollLimit = Session.get("productScrollLimit");
@@ -70,7 +73,9 @@ Template.productsLanding.onCreated(function () {
     this.state.set("slug", slug);
 
     const queryParams = Object.assign({}, tags, Reaction.Router.current().queryParams);
+
     this.subscribe("Products", scrollLimit, queryParams);
+    this.subscribe("Catagories");
 
     // we are caching `currentTag` or if we are not inside tag route, we will
     // use shop name as `base` name for `positions` object
@@ -101,19 +106,41 @@ Template.productsLanding.onCreated(function () {
 
 Template.productsLanding.onRendered(() => {
   // run the above func every time the user scrolls
-  $("#reactionAppContainer").on("scroll", loadMoreProducts);
-  $(window).on("scroll", loadMoreProducts);
+  // $("#reactionAppContainer").on("scroll", loadMoreProducts);
+  // $(window).on("scroll", loadMoreProducts);
+  Session.set('productScrollLimit', 1000);
 });
 
 Template.productsLanding.helpers({
   tag: function () {
     const id = Reaction.Router.getParam("_tag");
+    console.log(id);
     return {
       tag: Tags.findOne({ slug: id }) || Tags.findOne(id)
     };
   },
 
   products() {
+    // if (Session.get('tagFilter')) {
+    //   let handle = Session.get('tagFilter');
+    //   console.log("Products filtering handle");
+    //   console.log(Products.find({ handle: handle}).fetch());
+    //   console.log("Products in template instance");
+    //   console.log(Template.instance().products.get().fetch());
+    //   Template.instance().products.set();
+    // } else {
+    //   Template.instance().products.set(Products.find().fetch());
+    // }
+
+    let tagFilter = Session.get('tagFilter');
+    console.log("tagFilter");
+    console.log(tagFilter);
+    if (tagFilter === null || tagFilter === undefined) {
+      Template.instance().products.set(Products.find());
+    } else {
+      Template.instance().products.set(Products.find({ hashtags: { $all: [ tagFilter ] } }));
+      // Template.instance().products.set(Products.find({"handle": tagFilter}));
+    }
     return Template.instance().products.get();
   },
 

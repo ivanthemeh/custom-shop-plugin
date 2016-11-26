@@ -1,0 +1,56 @@
+<template name="customProductGrid">
+  <div class="container-main">
+    <div id="home-img-container">
+      <h1 id="home-img-text">T-Shirts</h1>
+      <img src="/placeholder_pan.jpg" width="100%" alt="" class="img-responsive">
+    </div>
+    <div class="product-grid">
+      <ul class="product-grid-list list-unstyled" id="product-grid-list">
+        <div id="productSlider" class="carousel slide" data-ride="carousel" data-interval="false">
+        <!-- Indicators -->
+        <ol class="carousel-indicators carousel-indicators-numbers">
+        <!-- {{#each products}}
+          <li data-target="#productSlider" data-slide-to="{{@index}}" class="{{addActive @index}}">{{indexPlusOne @index}}</li>
+        {{/each}} -->
+        {{#each limit products 8}}
+          <li data-target="#productSlider" data-slide-to="{{@index}}" class="{{addActive @index}}">{{indexPlusOne @index}}</li>
+        {{/each}}
+        <li style="position: relative;width: 80px;">
+          <a class="right carousel-control next-button" href="#productSlider" role="button" data-slide="next">
+            <span>Next</span>
+          </a>
+        </li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          {{#each limit products 8}}
+              <div class="item clearfix {{addActive @index}}">
+                {{#each this}}
+                  {{> customProductGridItems}}
+                {{/each}}
+              </div>
+          {{else}}
+            <div class="row">
+              <div class="text-center">
+                <h3>
+                  <span data-i18n="app.noProductsFound">No Products Found</span>
+                </h3>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+        <!-- Left and right controls -->
+        <!-- <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+          <span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+          <span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+          <span class="sr-only">Next</span>
+        </a> -->
+        </div>
+      </ul>
+    </div>
+    <hr style="margin: 0 10px;">
+  </div>
+</template>

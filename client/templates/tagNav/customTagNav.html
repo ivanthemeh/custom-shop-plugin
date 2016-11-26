@@ -1,0 +1,61 @@
+
+<template name="customTagNav">
+  <div class="navbar-filter-tags">
+    <div class="navbar-filter-header">
+      <h3>Filter by Tag</h3><br>
+    {{#each tag in filterTags}}
+      <span class="label label-default" id="{{tag._id}}">{{tag.name}}</span>
+    {{/each}}
+  </div>
+  </div>
+  <div class="rui tagnav {{navbarOrientation}} {{navbarPosition}} {{navbarAnchor}} {{navbarVisibility}}">
+    <div class="navbar-header">
+      <h3>Menu</h3>
+    </div>
+    <div class="navbar-items">
+      <div class="dropdown navbar-item hidden-xs hidden-sm">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">T-Shirts &nbsp;
+        <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            {{#each catagory in catagories}}
+              {{#if catagory.isTopLevel}}
+                <li><a href="?query={{catagory.slug}}">{{catagory.name}}</a></li>
+              {{/if}}
+            {{/each}}
+          </ul>
+      </div>
+      <div class="hidden-md hidden-lg">
+        <ul class="list-group">
+          {{#each catagory in catagories}}
+            <li class="list-group-item"><a href="?query={{catagory.slug}}">{{catagory.name}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+      {{#each tag in tags}}
+        <div class="navbar-item {{isActiveRoute 'tag'}} {{navbarSelectedClassName 'Catagory'}} {{hasDropdownClassName tag}}" data-id={{tag._id}}>
+          {{> tagItem (tagProps tag)}}
+
+          <div class="dropdown-container" data-tag={{tag._id}}>
+            {{> tagTree (tagTreeProps tag)}}
+          </div>
+        </div>
+      {{/each}}
+      <!-- <div class="navbar-item {{navbarSelectedClassName tag}} {{hasDropdownClassName tag}}" data-id={{tag._id}}>
+        <a class="rui tag link" href="{{pathFor 'about'}}">About</a>
+      </div>
+      <div class="navbar-item {{navbarSelectedClassName tag}} {{hasDropdownClassName tag}}" data-id={{tag._id}}>
+        <a class="rui tag link" href="{{pathFor 'contact'}}">Contact</a>
+      </div> -->
+      {{#if isEditing}}
+        <div class="navbar-item create">
+          {{> tagItem blankTagProps}}
+        </div>
+      {{/if}}
+      {{#if canEdit}}
+        <div class="navbar-item">
+          {{> React EditButton }}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</template>

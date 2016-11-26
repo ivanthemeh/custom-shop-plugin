@@ -3,6 +3,9 @@ import { Template } from "meteor/templating";
 import { ReactiveDict } from "meteor/reactive-dict";
 import { TagHelpers } from "/imports/plugins/core/ui-tagnav/client/helpers";
 import { IconButton } from "/imports/plugins/core/ui/client/components";
+import { Products, Tags } from "/lib/collections";
+import { Catagories } from "../../../lib/collections";
+
 
 const NavbarStates = {
   Orientation: "stateNavbarOrientation",
@@ -187,7 +190,30 @@ Template.customTagNav.onDestroyed(function () {
 });
 
 
+
 Template.customTagNav.helpers({
+  filterTags() {
+    let products = Products.find({metafields: {$elemMatch: {key:'Catagory'}}}).fetch(),
+    metaArrTags =[],
+    tagsArr = [];
+    products.forEach(function(e,i){
+      if (e.hashtags) {
+        e.hashtags.forEach(function(e,i){
+          metaArrTags.push(e);
+        });
+      }
+    });
+    _.uniq(metaArrTags).forEach(function(e,i){
+      tagsArr.push(Tags.findOne({_id: e}));
+    });
+    return tagsArr;
+  },
+  catagories() {
+    return Catagories.find();
+  },
+  tagsSideBar(){
+    return Session.set('tags', Tags.find({isTopLevel: false}).fetch());
+  },
   EditButton() {
     const instance = Template.instance();
     const state = instance.state;
@@ -306,6 +332,21 @@ Template.customTagNav.helpers({
 
 
 Template.customTagNav.events({
+  "click .navbar-filter-tags .label-default"(event,template) {
+    if ($(event.target).hasClass("active")) {
+      $(event.target).removeClass("active");
+      Session.set('tagFilter', null);
+      $(".filter-btn").attr("src", "/filter.png");
+    } else {
+      Session.set('tagFilter', event.target.id);
+      $(".label-default.active").removeClass("active");
+      $(event.target).toggleClass("active");
+      $(".filter-btn").attr("src", "/filter_active.png");
+    }
+  },
+  "click .dropdown-toggle"(event, template) {
+    ReactionRouter.go("index");
+  },
   "click .navbar-item > .rui.tag.link"(event, instance) {
     if (TagNavHelpers.isMobile()) {
       const tagId = event.target.dataset.id;

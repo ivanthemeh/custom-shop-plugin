@@ -4,7 +4,8 @@ import "./checkout/review/review";
 
 // layouts
 import "./layouts/core.html";
-import "./layouts/customLayoutHeader.html";
+import "./layouts/header.html";
+import "./layouts/footer.html";
 
 
 // products
@@ -12,18 +13,22 @@ import "./products/productsLanding.html";
 import "./products/productsLanding";
 import "./products/customProductDetail.html";
 import "./products/customProductDetail";
+import "./products/customProductGrid.html";
+import "./products/customProductGrid";
+import "./products/customProductGridItem.html";
+import "./products/customProductGridItem";
 
 // brand
-import "./brand/brand.html";
-import "./brand/brand";
+import "./brand/customBrand.html";
+import "./brand/customBrand";
 
 // navbar
-import "./navbar/navbar.html";
-import "./navbar/navbar";
+import "./navbar/customNavbar.html";
+import "./navbar/customNavbar";
 
 // tagnav
-import "./tagNav/tagNav.html";
-import "./tagNav/tagNav";
+import "./tagNav/customTagNav.html";
+import "./tagNav/customTagNav";
 
 //contact
 import "./contact/contact.html";

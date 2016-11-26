@@ -1,9 +1,6 @@
 <template name="productsLanding">
   {{#if ready}}
-    <div class="container">
-      <h1>Memetees.com</h1>      
-    </div>
-    {{>productGrid products=products}}
+    {{>customProductGrid products=products}}
     {{#if loadMoreProducts}}
       <div class="product-load-more" id="productScrollLimitLoader">
         <button
@@ -27,7 +24,7 @@
 
 <template name="productListGridBeesKnees">
   <div class="row">
-    {{>productGrid products=products}}
+    {{>customProductGrid products=products}}
     {{#if hasPermission "createProduct"}}
       {{>productList}}
     {{/if}}

@@ -2,8 +2,8 @@ import { Reaction } from "/server/api";
 
 // Register package as ReactionCommerce package
 Reaction.registerPackage({
-  label: "Bees Knees",
-  name: "beesknees",
+  label: "meemtees",
+  name: "meemtees",
   icon: "fa fa-vine",
   autoEnable: true,
   registry: [
@@ -22,15 +22,15 @@ Reaction.registerPackage({
   ],
   layout: [
     {
-      layout: "coreLayoutBeesknees",
+      layout: "coreLayoutCustomShop",
       workflow: "coreWorkflow",
       collection: "Products",
       theme: "default",
       enabled: true,
       structure: {
         template: "productsLanding",
-        layoutHeader: "customLayoutHeader",
-        layoutFooter: "layoutFooter",
+        layoutHeader: "layoutHeaderCustomShop",
+        layoutFooter: "layoutFooterCustomShop",
         notFound: "productNotFound",
         dashboardHeader: "",
         dashboardControls: "dashboardControls",
@@ -39,15 +39,15 @@ Reaction.registerPackage({
       }
     },
     {
-      layout: "coreLayoutBeesknees",
+      layout: "coreLayoutCustomShop",
       workflow: "coreProductWorkflow",
       collection: "Products",
       theme: "default",
       enabled: true,
       structure: {
         template: "customProductDetail",
-        layoutHeader: "customLayoutHeader",
-        layoutFooter: "",
+        layoutHeader: "layoutHeaderCustomShop",
+        layoutFooter: "layoutFooterCustomShop",
         notFound: "productNotFound",
         dashboardHeader: "",
         dashboardControls: "productDetailDashboardControls",
@@ -56,15 +56,15 @@ Reaction.registerPackage({
       }
     },
     {
-      layout: "coreLayoutBeesknees",
+      layout: "coreLayoutCustomShop",
       workflow: "coreProductWorkflow",
       collection: "Products",
       theme: "default",
       enabled: true,
       structure: {
         template: "customProductDetailSimple",
-        layoutHeader: "customLayoutHeader",
-        layoutFooter: "",
+        layoutHeader: "layoutHeaderCustomShop",
+        layoutFooter: "layoutFooterCustomShop",
         notFound: "productNotFound",
         dashboardHeader: "",
         dashboardControls: "productDetailDashboardControls",

@@ -1,4 +1,11 @@
 <template name="customCoreNavigationBar">
+  <div id="header-img-container">
+    <a href="/">
+      {{#unless isInRole 'admin'}}
+      <img id="header-img" src="/meemtees_logo.png" alt="" class="responsive">
+      {{/unless}}
+    </a>
+  </div>
   <div class="rui navbar">
     <div class="showmenu">{{> button icon="bars" onClick=onMenuButtonClick}}</div>
       {{> customCoreNavigationBrand}}
